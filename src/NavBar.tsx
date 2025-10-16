@@ -1,13 +1,27 @@
+import { NavLink } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 export const NavBar = () => {
+  // helper: cierra el offcanvas si está abierto
+  const closeOffcanvas = () => {
+    const toggler = document.querySelector(
+      ".navbar-toggler"
+    ) as HTMLButtonElement | null;
+    const panel = document.getElementById("offcanvasNavbar");
+    if (toggler && panel && panel.classList.contains("show")) toggler.click();
+  };
+
+  const linkCls = ({ isActive }: { isActive: boolean }) =>
+    `nav-link ${isActive ? "active fw-semibold" : ""}`;
+
   return (
     <nav className="navbar bg-body-tertiary fixed-top">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
+        <NavLink className="navbar-brand" to="/" onClick={closeOffcanvas}>
           My First App
-        </a>
+        </NavLink>
+
         <button
           className="navbar-toggler"
           type="button"
@@ -18,16 +32,14 @@ export const NavBar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
+
         <div
           className="offcanvas offcanvas-end"
           tabIndex={-1}
           id="offcanvasNavbar"
-          aria-labelledby="offcanvasNavbarLabel"
         >
           <div className="offcanvas-header">
-            <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
-              Menu
-            </h5>
+            <h5 className="offcanvas-title">Menu</h5>
             <button
               type="button"
               className="btn-close"
@@ -35,44 +47,56 @@ export const NavBar = () => {
               aria-label="Close"
             ></button>
           </div>
+
           <div className="offcanvas-body">
             <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
+                <NavLink
+                  to="/mis-datos"
+                  className={linkCls}
+                  onClick={closeOffcanvas}
+                >
                   Mis datos
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <NavLink
+                  to="/validar-edad"
+                  className={linkCls}
+                  onClick={closeOffcanvas}
+                >
                   Validar edad
-                </a>
+                </NavLink>
               </li>
+
+              {/* Ejemplo dropdown con rutas */}
               <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
                   href="#"
                   role="button"
                   data-bs-toggle="dropdown"
-                  aria-expanded="false"
                 >
-                  Dropdown
+                  Más
                 </a>
                 <ul className="dropdown-menu">
                   <li>
-                    <a className="dropdown-item" href="#">
-                      Action
-                    </a>
+                    <NavLink
+                      to="/"
+                      className="dropdown-item"
+                      onClick={closeOffcanvas}
+                    >
+                      Inicio
+                    </NavLink>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#">
-                      Another action
-                    </a>
-                  </li>
-                  <li></li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Something else here
-                    </a>
+                    <NavLink
+                      to="/mis-datos"
+                      className="dropdown-item"
+                      onClick={closeOffcanvas}
+                    >
+                      Formulario
+                    </NavLink>
                   </li>
                 </ul>
               </li>

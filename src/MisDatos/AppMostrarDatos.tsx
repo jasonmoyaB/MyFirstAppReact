@@ -1,9 +1,21 @@
 import { use, useState } from "react";
+import { MostrarDatos } from "./MostrarDatos";
 
 export const AppMostrarDatos = () => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
-  const [edad, setEdad] = useState("");
+  const [edad, setEdad] = useState<number | "">("");
+
+  const ValidarEdad = (edad: number) => {
+    if (edad >= 17) {
+      alert(`Acceso permitido tu edad: ${ValidarEdad}`);
+      return true;
+    } else {
+      alert(`Acceso denegado tu edad: ${ValidarEdad}`);
+      return false;
+    }
+  };
+
   return (
     <form className="container mt-4" style={{ maxWidth: 500 }}>
       <h4 className="mb-3">Datos personales</h4>
@@ -15,8 +27,9 @@ export const AppMostrarDatos = () => {
         <input
           type="text"
           className="form-control"
-          id="nombre"
+          value={nombre}
           placeholder="Ingresa tu nombre"
+          onChange={(e) => setNombre(e.target.value)}
         />
       </div>
 
@@ -27,8 +40,9 @@ export const AppMostrarDatos = () => {
         <input
           type="text"
           className="form-control"
-          id="apellido"
+          value={apellido}
           placeholder="Ingresa tu apellido"
+          onChange={(e) => setApellido(e.target.value)}
         />
       </div>
 
@@ -39,15 +53,15 @@ export const AppMostrarDatos = () => {
         <input
           type="number"
           className="form-control"
-          id="edad"
+          value={edad}
           placeholder="Ingresa tu edad"
-          min="0"
+          onChange={(e) => setEdad(Number(e.target.value))}
         />
       </div>
-
-      <button type="submit" className="btn btn-primary w-100">
+      <MostrarDatos nombre={nombre} apellido={apellido} edad={Number(edad)} />
+      {/* <button type="submit" className="btn btn-primary w-100">
         Enviar
-      </button>
+      </button> */}
     </form>
   );
 };

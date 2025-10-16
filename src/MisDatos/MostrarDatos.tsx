@@ -6,11 +6,21 @@ interface MostrarDatosProps {
 
 export const MostrarDatos = ({ nombre, apellido, edad }: MostrarDatosProps) => {
   return (
-    <div>
-      <h1>Mis Datos:</h1>
-      <h2>Nombre: {nombre}</h2>
-      <h2>apellido: {apellido}</h2>
-      <h2>edad: {edad}</h2>
+    <div className="card">
+      <ul className="list-group list-group-flush" style={{ width: "18rem" }}>
+        <li className="list-group-item">
+          <strong>Mi Nombre: </strong>
+          {nombre}
+        </li>
+        <li className="list-group-item">
+          <strong>Apellido: </strong>
+          {apellido}
+        </li>
+        <li className="list-group-item">
+          <strong>Edad: </strong>
+          {edad}
+        </li>
+      </ul>
     </div>
   );
 };
